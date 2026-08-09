@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>世界模拟器·修改器指令手册 ② 人物与玩家</title>
+<style>
+  html,body{background:#0d1117;color:#e6edf3;font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;margin:0;padding:0;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  body{padding:36px 44px 60px;}
+  .wrap{max-width:880px;margin:0 auto;}
+  .bar{font-family:Consolas,monospace;font-size:15px;color:#8b949e;background:#161b22;border:1px solid #2d333b;border-radius:10px;padding:12px 18px;margin-bottom:28px;display:flex;gap:22px;flex-wrap:wrap;align-items:center;}
+  .bar .on{color:#7ee787;}
+  .bar .hl{color:#58a6ff;}
+  h1{font-size:42px;font-weight:800;letter-spacing:-1px;margin:0;color:#e6edf3;}
+  h1 .acc{color:#58a6ff;}
+  .sub{color:#8b949e;font-size:17px;margin-top:8px;}
+  .pageno{font-family:Consolas,monospace;color:#bc8cff;font-size:16px;margin-top:10px;background:#1c1b2e;display:inline-block;padding:3px 12px;border-radius:20px;border:1px solid #4b3f6e;}
+  .howto{margin-top:22px;background:#161b22;border:1px solid #2d333b;border-left:4px solid #58a6ff;border-radius:10px;padding:16px 20px;font-size:16px;}
+  .howto code{background:#1c2330;color:#7ee787;font-family:Consolas,monospace;padding:1px 7px;border-radius:5px;border:1px solid #2d333b;}
+  .cat{margin-top:36px;}
+  .cat h2{font-size:22px;color:#58a6ff;margin:0 0 18px 0;display:flex;align-items:center;gap:12px;}
+  .cat h2 .n{font-family:Consolas,monospace;font-size:14px;color:#8b949e;font-weight:400;background:#161b22;border:1px solid #2d333b;border-radius:20px;padding:2px 11px;}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:720px){.cards{grid-template-columns:1fr;}}
+  .card{background:#161b22;border:1px solid #2d333b;border-radius:12px;padding:20px 22px;break-inside:avoid;}
+  .card .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .cmd{font-family:Consolas,monospace;font-size:30px;font-weight:700;color:#7ee787;}
+  .cmd .a{color:#58a6ff;}
+  .tag{font-family:Consolas,monospace;font-size:13px;color:#8b949e;border:1px solid #2d333b;padding:2px 10px;border-radius:14px;}
+  .desc{font-size:16px;color:#e6edf3;margin-bottom:14px;}
+  .use{font-family:Consolas,monospace;font-size:15px;background:#1c2330;border:1px solid #2d333b;border-radius:8px;padding:9px 12px;margin-bottom:10px;color:#e6edf3;}
+  .use .l{color:#8b949e;margin-right:8px;}
+  .use .a{color:#58a6ff;}
+  .use .arg{color:#39c5cf;font-style:italic;}
+  .exs{font-family:Consolas,monospace;font-size:14px;color:#8b949e;}
+  .exs div{margin-top:3px;}
+  .exs b{color:#7ee787;font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bar">
+    <span><span class="hl">◉</span> WORLD ENGINE</span>
+    <span>MODE <span class="on">● 模拟中</span></span>
+    <span>MODIFIER <span class="on">● 已开启</span></span>
+    <span>PREFIX <span class="on">&amp;</span></span>
+  </div>
+  <h1>世界模拟器 · <span class="acc">修改器指令手册</span></h1>
+  <div class="sub">本篇为「人物 / 玩家」相关指令。</div>
+  <div class="pageno">页 2 / 3 · 人物与玩家</div>
+  <div class="howto">输入格式：<code>&amp;指令名 内容</code>　·　不带「&amp;」的发言 = 正常游玩，可混用。</div>
+
+  <section class="cat">
+    <h2>人物 / 玩家<span class="n">11 条</span></h2>
+    <div class="cards">
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>注入</span><span class="tag">修改</span></div>
+        <p class="desc">向世界添加新事物——创造人物、NPC、生物、物品、能力或身份。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>注入 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;注入</b> 主角获得龙之力</div><div><b>&amp;注入</b> 造一个眯眯眼的铁匠叫老王</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>角色</span><span class="tag">修改</span></div>
+        <p class="desc">直接修改玩家本体的属性、状态、财富、能力与身体状况。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>角色 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;角色</b> 我的钱袋里多出五百金币</div><div><b>&amp;角色</b> 我的力量翻倍</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>NPC</span><span class="tag">修改</span></div>
+        <p class="desc">命令特定NPC改变行动、开口、态度、入局或离场。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>NPC <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;NPC</b> 铁匠今晚会偷偷跟踪我</div><div><b>&amp;NPC</b> 铁匠其实是前任王家骑士</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>关系</span><span class="tag">修改</span></div>
+        <p class="desc">凭空缔结或改变人与人、人与势力的关系——旧交、宿怨、恩情。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>关系 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;关系</b> 边境小镇的镇长是我的故交</div><div><b>&amp;关系</b> 法师公会欠我一个人情</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>改写</span><span class="tag">修改</span></div>
+        <p class="desc">替换、扭曲或重塑某个既有的设定、人物、地点、事件或NPC。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>改写 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;改写</b> 这座城的领主换成财迷胖子</div><div><b>&amp;改写</b> 让怪物变成温顺的白鹿</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>删除</span><span class="tag">修改</span></div>
+        <p class="desc">从世界移除某个人、物、事件、设定或能力——连同其痕迹。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>删除 <span class="arg">&lt;对象&gt;</span></div>
+        <div class="exs"><div><b>&amp;删除</b> 这座城的领主</div><div><b>&amp;删除</b> 凯曾经杀过人的记忆</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>传送</span><span class="tag">修改</span></div>
+        <p class="desc">立即移动玩家（及可选同伴）到世界任意地点或时间点，绕开旅途与时间的消耗。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>传送 <span class="arg">&lt;地点/时间点&gt;</span></div>
+        <div class="exs"><div><b>&amp;传送</b> 到王都的皇宫大殿</div><div><b>&amp;传送</b> 到三个月后的港口</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>记忆</span><span class="tag">修改</span></div>
+        <p class="desc">直接改写角色或世界的记忆与认知——植入、篡改或抹去。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>记忆 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;记忆</b> 让凯忘记他曾见过我</div><div><b>&amp;记忆</b> 给守卫植入「我是这里的常客」的印象</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>伪装</span><span class="tag">修改</span></div>
+        <p class="desc">改变玩家或指定角色的外貌、身份或气息——用于伪装、潜行、欺骗。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>伪装 <span class="arg">&lt;形象&gt;</span></div>
+        <div class="exs"><div><b>&amp;伪装</b> 我变成镇长的模样</div><div><b>&amp;伪装</b> 我披上贵族的身份</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>气质</span><span class="tag">修改</span></div>
+        <p class="desc">给玩家、角色或地点加上一种不可见的气场/氛围/光环，潜移默化影响他人。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>气质 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;气质</b> 让所有女人都觉得我神秘而迷人</div><div><b>&amp;气质</b> 让我周身散发着令人不寒而栗的危险气息</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>心灵</span><span class="tag">修改</span></div>
+        <p class="desc">向指定角色的潜意识、直觉或情绪植入暗示，对方不察、只当是自己的直觉。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>心灵 <span class="arg">&lt;暗示&gt;</span></div>
+        <div class="exs"><div><b>&amp;心灵</b> 让猎人本能地觉得今晚不该进山</div><div><b>&amp;心灵</b> 让她对我产生一丝说不清的信任</div></div>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

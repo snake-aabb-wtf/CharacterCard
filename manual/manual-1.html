@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>世界模拟器·修改器指令手册 ① 世界与天象</title>
+<style>
+  html,body{background:#0d1117;color:#e6edf3;font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;margin:0;padding:0;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  body{padding:36px 44px 60px;}
+  .wrap{max-width:880px;margin:0 auto;}
+  /* 状态条 */
+  .bar{font-family:Consolas,monospace;font-size:15px;color:#8b949e;background:#161b22;border:1px solid #2d333b;border-radius:10px;padding:12px 18px;margin-bottom:28px;display:flex;gap:22px;flex-wrap:wrap;align-items:center;}
+  .bar .on{color:#7ee787;}
+  .bar .hl{color:#58a6ff;}
+  /* 标题 */
+  h1{font-size:42px;font-weight:800;letter-spacing:-1px;margin:0;color:#e6edf3;}
+  h1 .acc{color:#58a6ff;}
+  .sub{color:#8b949e;font-size:17px;margin-top:8px;}
+  .pageno{font-family:Consolas,monospace;color:#bc8cff;font-size:16px;margin-top:10px;background:#1c1b2e;display:inline-block;padding:3px 12px;border-radius:20px;border:1px solid #4b3f6e;}
+  /* 规则框 */
+  .howto{margin-top:22px;background:#161b22;border:1px solid #2d333b;border-left:4px solid #58a6ff;border-radius:10px;padding:16px 20px;font-size:16px;}
+  .howto code{background:#1c2330;color:#7ee787;font-family:Consolas,monospace;padding:1px 7px;border-radius:5px;border:1px solid #2d333b;}
+  /* 分组 */
+  .cat{margin-top:36px;}
+  .cat h2{font-size:22px;color:#58a6ff;margin:0 0 18px 0;display:flex;align-items:center;gap:12px;}
+  .cat h2 .n{font-family:Consolas,monospace;font-size:14px;color:#8b949e;font-weight:400;background:#161b22;border:1px solid #2d333b;border-radius:20px;padding:2px 11px;}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:720px){.cards{grid-template-columns:1fr;}}
+  /* 卡片 */
+  .card{background:#161b22;border:1px solid #2d333b;border-radius:12px;padding:20px 22px;break-inside:avoid;}
+  .card .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .cmd{font-family:Consolas,monospace;font-size:30px;font-weight:700;color:#7ee787;}
+  .cmd .a{color:#58a6ff;}
+  .tag{font-family:Consolas,monospace;font-size:13px;color:#8b949e;border:1px solid #2d333b;padding:2px 10px;border-radius:14px;}
+  .tag.q{color:#39c5cf;border-color:#39c5cf;}
+  .desc{font-size:16px;color:#e6edf3;margin-bottom:14px;}
+  .use{font-family:Consolas,monospace;font-size:15px;background:#1c2330;border:1px solid #2d333b;border-radius:8px;padding:9px 12px;margin-bottom:10px;color:#e6edf3;}
+  .use .l{color:#8b949e;margin-right:8px;}
+  .use .a{color:#58a6ff;}
+  .use .arg{color:#39c5cf;font-style:italic;}
+  .exs{font-family:Consolas,monospace;font-size:14px;color:#8b949e;}
+  .exs div{margin-top:3px;}
+  .exs b{color:#7ee787;font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bar">
+    <span><span class="hl">◉</span> WORLD ENGINE</span>
+    <span>MODE <span class="on">● 模拟中</span></span>
+    <span>MODIFIER <span class="on">● 已开启</span></span>
+    <span>PREFIX <span class="on">&amp;</span></span>
+  </div>
+  <h1>世界模拟器 · <span class="acc">修改器指令手册</span></h1>
+  <div class="sub">世界模拟模式中说「开启修改器模式」切入 &amp; 指令接口。前缀一律用「&amp;」。</div>
+  <div class="pageno">页 1 / 3 · 世界与天象</div>
+  <div class="howto">输入格式：<code>&amp;指令名 内容</code>　·　不带「&amp;」的发言 = 正常游玩，可混用。</div>
+
+  <section class="cat">
+    <h2>世界 / 设定<span class="n">5 条</span></h2>
+    <div class="cards">
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>设定</span><span class="tag">修改</span></div>
+        <p class="desc">从根基重置世界规则与物理常数——改变重力、抹除魔法、让某种存在消失。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>设定 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;设定</b> 重力减半</div><div><b>&amp;设定</b> 魔法在这个世界消失</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>地图</span><span class="tag">修改</span></div>
+        <p class="desc">重塑世界版图——升山裂海、新建或抹去城镇地貌。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>地图 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;地图</b> 北方边境升起一座雪山</div><div><b>&amp;地图</b> 大陆中央裂开一道海峡</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>时间</span><span class="tag">修改</span></div>
+        <p class="desc">操控时间流——快进、拨回或暂停时间，改变时辰季节年份。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>时间 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;时间</b> 快进到三个月后</div><div><b>&amp;时间</b> 时间暂停</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>历史</span><span class="tag">修改</span></div>
+        <p class="desc">改写世界过往与既定事实——塑造背景传说、角色身世与过去大事。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>历史 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;历史</b> 十年前这里爆发过瘟疫</div><div><b>&amp;历史</b> 凯是被灭门的遗孤</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>势力</span><span class="tag">修改</span></div>
+        <p class="desc">创建、合并、灭亡或改变国家、组织、种族，重置多方平衡。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>势力 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;势力</b> 龙鳞王国向边境城镇宣战</div><div><b>&amp;势力</b> 法师公会由暗转明</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cat">
+    <h2>事件 / 天象<span class="n">3 条</span></h2>
+    <div class="cards">
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>事件</span><span class="tag">修改</span></div>
+        <p class="desc">在某个时刻或地点凭空触发变故——兵变、刺客、天灾、奇遇。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>事件 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;事件</b> 三天后王都陷落</div><div><b>&amp;事件</b> 此刻地震</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>天气</span><span class="tag">修改</span></div>
+        <p class="desc">即时改变天空——降雨、风暴、浓雾或罕见异象。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>天气 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;天气</b> 今夜全境下流星火雨</div><div><b>&amp;天气</b> 你所在的小镇大雾封镇</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>天启</span><span class="tag">修改</span></div>
+        <p class="desc">降下世界级异象或超自然波动——陨石、神迹、文明级大动静。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>天启 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;天启</b> 一枚陨石砸向大陆中心</div><div><b>&amp;天启</b> 神明现身于天空</div></div>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

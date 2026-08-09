@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>世界模拟器·修改器指令手册 ③ 剧情与万能</title>
+<style>
+  html,body{background:#0d1117;color:#e6edf3;font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;margin:0;padding:0;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  body{padding:36px 44px 60px;}
+  .wrap{max-width:880px;margin:0 auto;}
+  .bar{font-family:Consolas,monospace;font-size:15px;color:#8b949e;background:#161b22;border:1px solid #2d333b;border-radius:10px;padding:12px 18px;margin-bottom:28px;display:flex;gap:22px;flex-wrap:wrap;align-items:center;}
+  .bar .on{color:#7ee787;}
+  .bar .hl{color:#58a6ff;}
+  h1{font-size:42px;font-weight:800;letter-spacing:-1px;margin:0;color:#e6edf3;}
+  h1 .acc{color:#58a6ff;}
+  .sub{color:#8b949e;font-size:17px;margin-top:8px;}
+  .pageno{font-family:Consolas,monospace;color:#bc8cff;font-size:16px;margin-top:10px;background:#1c1b2e;display:inline-block;padding:3px 12px;border-radius:20px;border:1px solid #4b3f6e;}
+  .howto{margin-top:22px;background:#161b22;border:1px solid #2d333b;border-left:4px solid #58a6ff;border-radius:10px;padding:16px 20px;font-size:16px;}
+  .howto code{background:#1c2330;color:#7ee787;font-family:Consolas,monospace;padding:1px 7px;border-radius:5px;border:1px solid #2d333b;}
+  .cat{margin-top:36px;}
+  .cat h2{font-size:22px;color:#58a6ff;margin:0 0 18px 0;display:flex;align-items:center;gap:12px;}
+  .cat h2 .n{font-family:Consolas,monospace;font-size:14px;color:#8b949e;font-weight:400;background:#161b22;border:1px solid #2d333b;border-radius:20px;padding:2px 11px;}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:720px){.cards{grid-template-columns:1fr;}}
+  .card{background:#161b22;border:1px solid #2d333b;border-radius:12px;padding:20px 22px;break-inside:avoid;}
+  .card.wide{grid-column:1/-1;}
+  .card .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .cmd{font-family:Consolas,monospace;font-size:30px;font-weight:700;color:#7ee787;}
+  .cmd .a{color:#58a6ff;}
+  .tag{font-family:Consolas,monospace;font-size:13px;color:#8b949e;border:1px solid #2d333b;padding:2px 10px;border-radius:14px;}
+  .tag.q{color:#39c5cf;border-color:#39c5cf;}
+  .tag.any{color:#bc8cff;border-color:#bc8cff;font-weight:700;}
+  .desc{font-size:16px;color:#e6edf3;margin-bottom:14px;}
+  .use{font-family:Consolas,monospace;font-size:15px;background:#1c2330;border:1px solid #2d333b;border-radius:8px;padding:9px 12px;margin-bottom:10px;color:#e6edf3;}
+  .use .l{color:#8b949e;margin-right:8px;}
+  .use .a{color:#58a6ff;}
+  .use .arg{color:#39c5cf;font-style:italic;}
+  .exs{font-family:Consolas,monospace;font-size:14px;color:#8b949e;}
+  .exs div{margin-top:3px;}
+  .exs b{color:#7ee787;font-weight:600;}
+  .anybox{font-size:18px;color:#e6edf3;}
+  .anybox .cmd{display:block;margin-bottom:8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bar">
+    <span><span class="hl">◉</span> WORLD ENGINE</span>
+    <span>MODE <span class="on">● 模拟中</span></span>
+    <span>MODIFIER <span class="on">● 已开启</span></span>
+    <span>PREFIX <span class="on">&amp;</span></span>
+  </div>
+  <h1>世界模拟器 · <span class="acc">修改器指令手册</span></h1>
+  <div class="sub">本篇为「剧情 / 叙事」与「查询 / 万能」指令。</div>
+  <div class="pageno">页 3 / 3 · 剧情与万能</div>
+  <div class="howto">输入格式：<code>&amp;指令名 内容</code>　·　不带「&amp;」的发言 = 正常游玩，可混用。</div>
+
+  <section class="cat">
+    <h2>剧情 / 叙事<span class="n">4 条</span></h2>
+    <div class="cards">
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>剧情</span><span class="tag">修改</span></div>
+        <p class="desc">调度叙事——预定转折、重排主线、让原本要发生的事改变方向。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>剧情 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;剧情</b> 明天夜里主角会被人刺杀</div><div><b>&amp;剧情</b> 主线是主角所在城镇地下埋着古城</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>对话</span><span class="tag">修改</span></div>
+        <p class="desc">让某个角色说出本不会说的话，或把一段对话写进此刻交流。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>对话 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;对话</b> 铁匠突然喊住我：今晚别走货</div><div><b>&amp;对话</b> 酒馆老板小声警告我快逃</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>视角</span><span class="tag">修改</span></div>
+        <p class="desc">把镜头切到别处——远方、异地角色或敌营，看玩家身侧外的事。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>视角 <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;视角</b> 展示王都此刻在发生什么</div><div><b>&amp;视角</b> 让我看到三里外的追兵</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>刷新</span><span class="tag">修改</span></div>
+        <p class="desc">重新生成场景细节、人物或事件——类似重掷骰子、换一批结果。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>刷新 <span class="arg">&lt;对象&gt;</span></div>
+        <div class="exs"><div><b>&amp;刷新</b> 酒馆里的那个猎人换成别人</div><div><b>&amp;刷新</b> 重新描述这场战斗的走向</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cat">
+    <h2>查询 / 万能<span class="n">3 条</span></h2>
+    <div class="cards">
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>状态</span><span class="tag q">查询</span></div>
+        <p class="desc">查看世界实时全貌——时间、天气、局势、能力、位置、关键NPC。只回报信息，不改变世界。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>状态 <span class="arg">&lt;对象?&gt;</span></div>
+        <div class="exs"><div><b>&amp;状态</b></div><div><b>&amp;状态</b> 当前所在的城镇</div><div><b>&amp;状态</b> 我的能力</div></div>
+      </div>
+      <div class="card">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>日志</span><span class="tag q">查询</span></div>
+        <p class="desc">回溯并汇报某对象过去一段时间的事件脉络或前因后果，补充你没经历或淡忘的过往。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>日志 <span class="arg">&lt;对象/时段&gt;</span></div>
+        <div class="exs"><div><b>&amp;日志</b> 过去三天世界都发生了什么</div><div><b>&amp;日志</b> 这门亲事是怎么结下的</div></div>
+      </div>
+      <div class="card wide">
+        <div class="top"><span class="cmd"><span class="a">&amp;</span>Any</span><span class="tag any">万能</span></div>
+        <p class="desc">最后的兜底闸门。凡是上述指令没覆盖到的修改请求，交给他就照改不误——想改什么、怎么改都行，不受任何物理、因果或约束限制。</p>
+        <div class="use"><span class="l">用法</span><span class="a">&amp;</span>Any <span class="arg">&lt;内容&gt;</span></div>
+        <div class="exs"><div><b>&amp;Any</b> 让我今晚梦见祖先的警告</div><div><b>&amp;Any</b> 整个世界的人都开始说反话</div></div>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>
