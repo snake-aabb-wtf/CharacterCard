@@ -1,0 +1,193 @@
+<html><head><meta charset="utf-8"><style>
+  :root{
+    --bg:#0d1117aa; --panel:#161b22ee; --line:#30363d; --txt:#e6edf3;
+    --acc:#58a6ff; --acc2:#3fb950; --warn:#d29922;
+    --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:transparent;color:var(--txt);font-family:var(--mono);font-size:13px;padding:8px}
+  .wrap{display:flex;flex-direction:column;gap:8px;max-width:620px}
+  /* ===== HUD ===== */
+  .hud{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;backdrop-filter:blur(4px)}
+  .hud-title{font-size:11px;letter-spacing:2px;color:var(--acc);font-weight:700;margin-bottom:6px;display:flex;justify-content:space-between}
+  .hud-title .mode{color:var(--warn);letter-spacing:0;text-transform:uppercase}
+  .hud-grid{display:grid;grid-template-columns:60px 1fr 60px 1fr;gap:3px 10px}
+  .hud-grid .k{color:#8b949e;font-size:11px}
+  .hud-grid .v{font-size:12px}
+  .hud-grid .v.full{grid-column:span 3}
+  /* ===== CMD BAR ===== */
+  .cmd{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .cmd-title{font-size:11px;letter-spacing:2px;color:var(--acc2);font-weight:700;margin-bottom:8px}
+  .row{display:flex;gap:8px;align-items:center;margin-bottom:6px}
+  .row label{font-size:11px;color:#8b949e;width:36px;flex:none}
+  select,.inp{background:#0d1117;border:1px solid var(--line);color:var(--txt);border-radius:6px;padding:6px 8px;font-family:var(--mono);font-size:12px;flex:1}
+  select:focus,.inp:focus{outline:none;border-color:var(--acc)}
+  .inp::placeholder{color:#484f58}
+  .grp{font-size:11px;font-weight:700;color:var(--acc)}
+  .btnrow{display:flex;gap:8px;margin-top:4px}
+  .btn{flex:1;background:var(--acc);color:#0d1117;border:none;border-radius:6px;padding:7px;font-weight:700;font-family:var(--mono);font-size:12px;cursor:pointer;transition:.15s}
+  .btn:hover{filter:brightness(1.15);transform:translateY(-1px)}
+  .btn:active{transform:translateY(0)}
+  .btn.preview{background:#21262d;color:var(--txt);border:1px solid var(--line)}
+  .btn.send{background:var(--acc2)}
+  .preview-line{background:#161b22;border:1px dashed var(--line);border-radius:6px;padding:6px 8px;font-size:11px;color:#8b949e;margin-top:6px;min-height:16px;word-break:break-all}
+  .toast{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:var(--acc2);color:#0d1117;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:700;opacity:0;transition:.25s;pointer-events:none;z-index:999}
+  .toast.show{opacity:1}
+  .toast.err{background:#f85149}
+</style></head><body>
+<div class="wrap">
+  <!-- ========== HUD ========== -->
+  <div class="hud">
+    <div class="hud-title"><span>🌍 世界状态</span><span class="mode" id="hud-mode">模式A·初始化</span></div>
+    <div class="hud-grid">
+      <div class="k">场景</div><div class="v full" id="hud-scene">（尚未初始化世界）</div>
+      <div class="k">时间</div><div class="v" id="hud-time">—</div>
+      <div class="k">天气</div><div class="v" id="hud-weather">—</div>
+      <div class="k">地点</div><div class="v" id="hud-loc">—</div>
+      <div class="k">主角</div><div class="v" id="hud-char">—</div>
+      <div class="k">事件</div><div class="v full" id="hud-event">—</div>
+    </div>
+  </div>
+  <!-- ========== CMD BAR ========== -->
+  <div class="cmd">
+    <div class="cmd-title">⚙️ 修改器指令</div>
+    <div class="row">
+      <label>指令</label>
+      <select id="sel-cmd"></select>
+    </div>
+    <div class="row">
+      <label>内容</label>
+      <input class="inp" id="inp-content" placeholder="在这里输入想改的内容，如：改成阴天" autocomplete="off">
+    </div>
+    <div class="btnrow">
+      <button class="btn send" id="btn-send">✔ 发送修改指令</button>
+    </div>
+    <div class="preview-line" id="preview">（发送预览出现在这里）</div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  // ===== 26 条指令数据（与角色卡 lorebook 一一对应）=====
+  const CMDS = [
+    {g:'世界 · 设定', list:[
+      {k:'&设定',  t:'设定',  e:'修改世界规则、物理常数、大局设定。例：重力减半'},
+      {k:'&地图',  t:'地图',  e:'改地理、加/抹地点、变地形。例：城镇以北升起雪山'},
+      {k:'&时间',  t:'时间',  e:'快进/拨回/暂停时间。例：快进到三个月后'},
+      {k:'&历史',  t:'历史',  e:'改写过往历史与既定事实。例：十年前爆发过瘟疫'},
+      {k:'&势力',  t:'势力',  e:'改/建/灭势力、国家、组织。例：龙鳞王国向边境宣战'},
+    ]},
+    {g:'事件 · 天象', list:[
+      {k:'&事件',  t:'事件',  e:'强制触发某个事件。例：三天后王都陷落'},
+      {k:'&天气',  t:'天气',  e:'强设天气天象。例：今夜全境流星火雨'},
+      {k:'&天启',  t:'天启',  e:'世界级异象神迹灾难。例：陨石砸向大陆中心'},
+    ]},
+    {g:'人物 · 玩家', list:[
+      {k:'&记忆',  t:'记忆',  e:'改写记忆与认知。例：让凯忘记见过我'},
+      {k:'&传送',  t:'传送',  e:'把玩家移动到任意地点/时间。例：到王都皇宫大殿'},
+      {k:'&注入',  t:'注入',  e:'加人物/物品/能力。例：主角获得龙之力'},
+      {k:'&伪装',  t:'伪装',  e:'改变外貌/身份/气息。例：我变成镇长的模样'},
+      {k:'&气质',  t:'气质',  e:'加气场/氛围/光环。例：周身散发危险气息'},
+      {k:'&心灵',  t:'心灵',  e:'向潜意识植入暗示。例：让猎人觉得今晚不该进山'},
+      {k:'&角色',  t:'角色',  e:'改玩家属性/状态/财富。例：钱袋多出五百金币'},
+      {k:'&NPC',   t:'NPC',   e:'强制NPC行动/态度/入局。例：铁匠今晚偷偷跟踪我'},
+      {k:'&关系',  t:'关系',  e:'建立/修改人际关系。例：镇长是我的故交'},
+      {k:'&改写',  t:'改写',  e:'改写已有设定/人物/事件。例：领主换成财迷胖子'},
+      {k:'&删除',  t:'删除',  e:'从世界移除对象。例：删除那座城镇的领主'},
+    ]},
+    {g:'剧情 · 叙事', list:[
+      {k:'&剧情',  t:'剧情',  e:'强推/跳转剧情主线。例：明天夜里主角被刺杀'},
+      {k:'&对话',  t:'对话',  e:'强插/改写一段对话。例：铁匠喊住我别走货'},
+      {k:'&视角',  t:'视角',  e:'切/展现某处视角场面。例：展示王都此刻发生什么'},
+      {k:'&刷新',  t:'刷新',  e:'重新生成场景细节/人物/事件。例：猎人换成别人'},
+    ]},
+    {g:'查询 · 万能', list:[
+      {k:'&日志',  t:'日志',  e:'回溯过去时间线（查询）。例：过去三天发生了什么'},
+      {k:'&状态',  t:'状态',  e:'查看世界全貌/状态（查询）。例：当前城镇'},
+      {k:'&Any',   t:'Any(万能)', e:'兜底任意未覆盖修改。例：让全世界说反话'},
+    ]},
+  ];
+  const FLAT = [];
+  CMDS.forEach(g => g.list.forEach(c => FLAT.push(c)));
+
+  // ===== 构建下拉 =====
+  const sel = document.getElementById('sel-cmd');
+  CMDS.forEach(g => {
+    const og = document.createElement('optgroup');
+    og.label = g.g;
+    g.list.forEach(c => {
+      const o = document.createElement('option');
+      o.value = c.k;
+      o.text = `${c.k} ${c.t}`;
+      o.title = c.e;
+      og.appendChild(o);
+    });
+    sel.appendChild(og);
+  });
+
+  // ===== 输入框回车触发 & 预览 =====
+  const inp = document.getElementById('inp-content');
+  const preview = document.getElementById('preview');
+  const btn = document.getElementById('btn-send');
+
+  function currentCmd(){ return sel.value || '&Any'; }
+
+  inp.addEventListener('input', renderPreview);
+  sel.addEventListener('change', renderPreview);
+  function renderPreview(){
+    const c = currentCmd().trim();
+    const v = inp.value.trim();
+    preview.textContent = v ? `${c} ${v}` : (c ? c : '（先选指令再输入内容）');
+  }
+
+  // ===== 发送（调酒馆助手注入为玩家消息）=====
+  window.sendModCmd = async function(){
+    const c = currentCmd().trim();
+    const v = inp.value.trim();
+    if(!v){ toast('请先输入要修改的内容', true); return; }
+    const full = `${c} ${v}`;
+    try{
+      // 优先走酒馆助手 API
+      const TH = window.TavernHelper;
+      if(TH && typeof TH.createChatMessages === 'function'){
+        await TH.createChatMessages([{role:'user', message: full}]);
+        toast('已发送：' + full);
+      } else if(window.parent && window.parent.TavernHelper){
+        await window.parent.TavernHelper.createChatMessages([{role:'user', message: full}]);
+        toast('已发送：' + full);
+      } else {
+        toast('未检测到酒馆助手，请安装 JS-Slash-Runner', true);
+      }
+      inp.value=''; renderPreview();
+    }catch(e){
+      console.error('send err', e);
+      toast('发送失败：' + (e && e.message ? e.message : e), true);
+    }
+  };
+  btn.addEventListener('click', window.sendModCmd);
+  inp.addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); window.sendModCmd(); } });
+
+  // ===== HUD 更新（供 AI/脚本调用，或从聊天上下文解析）=====
+  window.updateHUD = function(state){
+    const s = state || {};
+    if(s.mode) document.getElementById('hud-mode').textContent = '模式'+ s.mode;
+    if(s.scene) document.getElementById('hud-scene').textContent = s.scene;
+    if(s.time)  document.getElementById('hud-time').textContent  = s.time;
+    if(s.weather) document.getElementById('hud-weather').textContent = s.weather;
+    if(s.loc)   document.getElementById('hud-loc').textContent   = s.loc;
+    if(s.char)  document.getElementById('hud-char').textContent  = s.char;
+    if(s.event) document.getElementById('hud-event').textContent = s.event;
+  };
+
+  function toast(msg, err){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (err?' err':'');
+    setTimeout(()=>{ t.className='toast'; }, 2200);
+  }
+
+  renderPreview();
+})();
+</script>
+</body></html>

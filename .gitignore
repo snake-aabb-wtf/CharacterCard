@@ -2,4 +2,6 @@
 _stress_*.py
 _verify_*.py
 _test_rp.py
+stress_flash.py
+stress_result.txt
 *.bak*

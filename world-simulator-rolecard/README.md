@@ -57,10 +57,31 @@
 - 目标模型：`deepseek-v4-pro`（世界自洽最佳）或 `deepseek-v4-flash-0731`（便宜够用）
 
 ## 文件
-- `world-simulator-modifier-command.json` — 可直接导入的角色卡（活动版本，27 条指令）
+- `world-simulator-modifier-command.json` — 可直接导入的角色卡（**指令版**，纯文本，26 条指令）
+- `world-simulator-render.json` — 可直接导入的角色卡（**渲染版**，带交互面板，26 条指令 + 世界HUD + 指令下拉条）
 - `manual/manual-{1,2,3}.html` — 三页完整指令手册（WEB 版）
 - `manual/p{1,2,3}.png` — 三页指令手册截图
 - `LICENSE` — CC0 1.0 公有领域
+
+## 🌐 渲染版（酒馆助手交互面板）
+
+> **仍在维护中**（2026-08-10 发布）。
+
+`world-simulator-render.json` 是基于指令版的**增强界面版本**：游玩核心逻辑与指令版 100% 一致（三模式 + 26 条指令 + 硬物理规则），仅叠加一层可选前端界面，由 **酒馆助手（TavernHelper / JS-Slash-Runner）** 以 iframe 渲染。
+
+### 功能
+- **🌍 世界状态 HUD（顶部常驻）**：实时显示 场景 / 时间 / 天气 / 地点 / 主角状态 / 当前事件，世界变化时自动刷新。
+- **⚙️ 修改器指令条（底部）**：26 条指令全部内置为可搜索下拉（按 5 大类分组）→ 选中 → 输入框填内容 → 点发送 → **自动拼成 `&指令 内容`** 作为玩家消息发出。**全程不用手打指令前缀**。
+- 发送预览、回车快捷发送、操作提示。
+
+### 依赖
+- **SillyTavern ≥ 1.12.14** + **酒馆助手（TavernHelper / JS-Slash-Runner）** 已安装。
+- 安装酒馆助手：SillyTavern 内 扩展 → 安装扩展 → 填 `https://github.com/n0vi028/JS-Slash-Runner`（或 `https://gitlab.com/novi028/JS-Slash-Runner`）。
+- 未装酒馆助手时，渲染版可正常游玩（面板不渲染），但指令条无法使用。纯文本指令版 `world-simulator-modifier-command.json` 无此依赖。
+
+### 与指令版的关系
+- **二选一使用**：想要交互面板选渲染版，想要最轻量稳定选指令版。
+- 渲染版是**可选增强**，不会覆盖或替代纯文本指令版；两者并存、独立维护。
 
 ## 📖 三页指令手册
 
@@ -91,7 +112,8 @@
 
 | 文件 | 版本 | 状态 |
 |---|---|---|
-| `world-simulator-modifier-command.json` | **指令版 v1.3**（活动） | ✅ 当前使用 |
+| `world-simulator-render.json` | **渲染版**（交互面板，26 条指令） | 🟢 仍维护 |
+| `world-simulator-modifier-command.json` | **指令版 v1.3**（纯文本，26 条指令） | ✅ 当前使用 |
 | `world-simulator.json` | 原版（无修改器） | 🗂️ 已归档 → `../archive/` |
 | `world-simulator-modifier-loose.json` | 宽松版（自然语言改世界） | 🗂️ 已归档 → `../archive/` |
 
