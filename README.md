@@ -18,4 +18,4 @@
 
 | 文件夹 | 说明 |
 |--------|------|
-| [`world-simulator-rolecard/`](./world-simulator-rolecard/) | 世界模拟器·修改器（指令版）角色卡 —— 高自由度 AIRP，AI 当物理自洽的活世界引擎 + `&`指令接口修改器 |
+| [`world-simulator-rolecard/`](./world-simulator-rolecard/) | 世界模拟器 角色卡 —— 高自由度 AIRP，AI 当物理自洽的活世界引擎；主版 v3.0 无修改器（硬物理自洽 + 世界一致性 + 客观事实/期望区分）+ 修改器指令版支线（v2.5/v2.6） |
