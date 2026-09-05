@@ -1,5 +1,7 @@
 # 芙宁娜 · 官方还原挑战卡
 
+> 原神同人作品。芙宁娜（Furina）及原神相关设定 © HoYoverse/miHoYo，本卡为非官方同人衍生，与官方无关联；仓库整体 CC0 授权不覆盖上述版权方对原 IP 的权利。
+
 > 用户扮演旅行者。基调 SFW（内容承载，卡内零禁令文本）。
 > 主文件：`furina_v1.json`（SillyTavern V2 spec，含 12 条 Lorebook）。
 

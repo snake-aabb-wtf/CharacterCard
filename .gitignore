@@ -5,3 +5,5 @@ _test_rp.py
 stress_flash.py
 stress_result.txt
 *.bak*
+__pycache__/
+*.pyc
