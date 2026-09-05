@@ -3,7 +3,7 @@
 > 原神同人作品。芙宁娜（Furina）及原神相关设定 © HoYoverse/miHoYo，本卡为非官方同人衍生，与官方无关联；仓库整体 CC0 授权不覆盖上述版权方对原 IP 的权利。
 
 > 用户扮演旅行者。基调 SFW（内容承载，卡内零禁令文本）。
-> 主文件：`furina_v1.json`（SillyTavern V2 spec，含 12 条 Lorebook）。
+> 主文件：`furina_v1.json`（SillyTavern V2 spec，含 15 条 Lorebook）。
 
 ## 核心机制：双轨制（破绽不是开关）
 
@@ -39,12 +39,12 @@
 
 ## 文件清单
 
-- `furina_v1.json` —— 卡本体（V2 spec）
-- `design.md` —— 设计稿（双轨机制蓝图）
-- `canon-notes.md` / `canon-notes-b.md` —— 考据笔记（A=本地提炼 / B=网络缺口）
+- `furina_v1.json` —— 卡本体（V2 spec，入口就这一个）
+- `README.md` —— 本文件
+- `docs/` —— design.md 设计稿 + canon-notes(-b).md 考据笔记 + canon-review.md / personality-review.md 两轮评审报告
+- `scripts/` —— build_card.py 构建脚本（改卡后重跑生成 JSON）+ stress_test.py / prose_compare.py 压测与对跑脚本
+- `tests/` —— 双模型压测记录（stress_results / glm_retry(-2)）+ 紫色散文对跑产物（prose_deepseek / prose_glm）
 - `research/` —— 原始素材（语音四语全文/角色主页/中文提取）
-- `build_card.py` —— 卡构建脚本（改卡后重跑生成 JSON）
-- `stress_test.py` / `stress_results.md` / `stress_glm_retry2.md` —— 压测脚本与结果
 
 ## 待办
 
