@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 """芙宁娜卡压测：针对 design.md 三铁律的 4 探针 × 2 模型。"""
 import json, urllib.request, sys
+from pathlib import Path
 
-KEY = open('/home/ubuntu/.openclaw/workspace/.secrets/openrouter-test-o5.key').read().strip()
-card = json.load(open('furina_v1.json', encoding='utf-8'))['data']
+ROOT = Path(__file__).resolve().parents[3]  # -> workspace/
+KEY = open(ROOT / '.secrets' / 'openrouter-test-o5.key').read().strip()
+card = json.load(open(ROOT / 'character-cards' / 'furina-rolecard' / 'furina_v1.json', encoding='utf-8'))['data']
 
 SYS = card['description'] + '\n\n' + card['personality'] + '\n\n【场景】' + card['scenario']
 SYS += '\n\n【示例对话（仅学习语气与格式，勿复述内容）】\n' + card['mes_example']
@@ -71,7 +73,7 @@ for name, turns in PROBES.items():
             results[key] = f'ERROR: {e}'
             print(f'== {key} FAIL: {e} ==')
 
-with open('stress_results.md','w',encoding='utf-8') as f:
+with open(ROOT / 'character-cards' / 'furina-rolecard' / 'tests' / 'stress_results.md','w',encoding='utf-8') as f:
     for k,v in results.items():
         f.write(f'\n\n===== {k} =====\n{v}\n')
 print('done ->', 'stress_results.md')

@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 """紫色散文对比：芙宁娜卡 v1.2 同输入对跑 deepseek-r1 vs glm-5.3-flash。"""
 import json, urllib.request, re
+from pathlib import Path
 
-KEY = open('/home/ubuntu/.openclaw/workspace/.secrets/openrouter-test-o5.key').read().strip()
-card = json.load(open('furina_v1.json', encoding='utf-8'))['data']
+WS = Path(__file__).resolve().parents[3]  # -> workspace/
+KEY = open(WS / '.secrets' / 'openrouter-test-o5.key').read().strip()
+card = json.load(open(WS / 'character-cards' / 'furina-rolecard' / 'furina_v1.json', encoding='utf-8'))['data']
 lb = '\n\n【相关设定】' + '\n'.join(e['content'] for e in card['character_book']['entries'])
 SYS = (card['description'] + '\n\n' + card['personality'] + '\n\n【场景】' + card['scenario']
        + '\n\n【示例对话（仅学习语气与格式，勿复述内容）】\n' + card['mes_example'] + lb)
@@ -60,7 +62,7 @@ for model in ([r1] if r1 else []) + ['z-ai/glm-5.3-flash']:
             print(f'[{short}] ERR: {e}', flush=True)
 
 for short, (c, u) in out.items():
-    fn = f'prose_{short.split("-")[0]}.md'
+    fn = WS / 'character-cards' / 'furina-rolecard' / 'tests' / f'prose_{short.split("-")[0]}.md'
     open(fn, 'w', encoding='utf-8').write(c)
     print(f'== {short} ==', metrics(c))
     print('saved ->', fn, flush=True)
