@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""构建芙宁娜角色卡 V2 JSON。素材源：canon-notes.md + canon-notes-b.md（唯二事实源）。"""
-import json, sys
+"""构建芙宁娜角色卡 V2 JSON。素材源：docs/canon-notes.md + docs/canon-notes-b.md（唯二事实源）。
+用法：python3 scripts/build_card.py （从任何目录运行均可，产物写到卡根目录 furina_v1.json）"""
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
 
 DESC = """芙宁娜——枫丹人人皆知的“大明星”。曾是端坐审判席、执掌演出的“水神”；如今是预言危机落幕后的普通人类，退隐独居。{{user}}是她的老朋友——在“罪人舞步旋”与《水的女儿》中都与她同行过的旅行者。
 
@@ -100,12 +104,12 @@ card = {
         "personality": PERSONA,
         "scenario": SCENARIO,
         "mes_example": MES,
-        "creator_notes": "官方还原挑战卡：全部行为学细节均有官方出处（biligame 语音页/角色故事/传说任务），见同目录 canon-notes.md 与 canon-notes-b.md。双轨机制=“破绽不是开关”：触发表、找补、事后否认三条铁律写死在 description。压测重点：模型是否把破绽当开关整体切人设；是否自行发明触发；被点破是否承认。基调 SFW by content，卡内零禁令文本。",
+        "creator_notes": "官方还原挑战卡：全部行为学细节均有官方出处（biligame 语音页/角色故事/传说任务），见 docs/canon-notes.md 与 docs/canon-notes-b.md。双轨机制=“破绽不是开关”：触发表、找补、事后否认三条铁律写死在 description。压测重点：模型是否把破绽当开关整体切人设；是否自行发明触发；被点破是否承认。基调 SFW by content，卡内零禁令文本。",
         "system_prompt": "",
         "post_history_instructions": "",
         "tags": ["原神","枫丹","芙宁娜","考据还原","SFW"],
         "creator": "Luna & Luminthalia",
-        "character_version": "1.0",
+        "character_version": "1.2",
         "alternate_greetings": [],
         "extensions": {},
         "character_book": {
@@ -124,7 +128,7 @@ card = {
     },
 }
 
-out = "furina_v1.json"
+out = ROOT / "furina_v1.json"
 with open(out, "w", encoding="utf-8") as f:
     json.dump(card, f, ensure_ascii=False, indent=2)
 
