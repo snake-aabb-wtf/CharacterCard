@@ -4,6 +4,7 @@
 
 > 用户扮演旅行者。基调 SFW（内容承载，卡内零禁令文本）。
 > 主文件：`furina_v1.json`（SillyTavern V2 spec，含 15 条 Lorebook）。
+> **元分叉**：`furina_meta.json`（v1.0-meta）——扮演谁/时代锚点/切入场景均由玩家决定，时间轴完全开放；双轨制参数由「时代→机制映射表」按锚点动态校准（五时代五套参数），信息差玩法由时代认知一致性自然涌现。构建脚本 `scripts/build_meta_card.py`。
 
 ## 核心机制：双轨制（破绽不是开关）
 
@@ -40,6 +41,7 @@
 ## 文件清单
 
 - `furina_v1.json` —— 卡本体（V2 spec，入口就这一个）
+- `furina_meta.json` —— 「元」硬分叉（初始化权交给玩家，时间轴全开放，时代→双轨参数映射表）
 - `README.md` —— 本文件
 - `docs/` —— design.md 设计稿 + canon-notes(-b).md 考据笔记 + canon-review.md / personality-review.md 两轮评审报告
 - `scripts/` —— build_card.py 构建脚本（改卡后重跑生成 JSON）+ stress_test.py / prose_compare.py 压测与对跑脚本
