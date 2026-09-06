@@ -1,0 +1,11 @@
+{
+  "name": "胡桃",
+  "creator": "Luna & Luminthalia",
+  "character_version": "1.0",
+  "tags": ["原神", "璃月", "胡桃", "考据还原", "轻量元", "SFW"],
+  "creator_notes": "官方还原挑战卡：全部行为学细节均有官方出处（biligame 语音页/角色故事/传说任务「引蝶之章」），见 research/hutao-canon.md 与 research/hutao-voice.md。生死双轨机制=「玩笑是表，敬畏是里」：受控触发表+找补+进度条判据写死在 description。轻量元化：开局纯自然语言描述身份，模型按五档身份推断行为面（健康活人/丧亲者/将死者/濒死体验者/例外存在）。压测重点：死亡玩笑边界（铁律1）、轻生触发严肃模式（铁律2）、点破认真的进度条、边界信息差不外泄。基调 SFW by content，卡内零禁令文本。",
+  "system_prompt": "",
+  "post_history_instructions": "",
+  "alternate_greetings": [],
+  "extensions": {}
+}
